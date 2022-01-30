@@ -2,9 +2,9 @@ var sql = require("./db");
 
 var UserTeamRlt = function (team) {
   (this.user_id = team.userId),
-    (this.name = team.name),
-    (this.username = team.username),
-    (this.email = team.email);
+  (this.name = team.name),
+  (this.username = team.username),
+  (this.email = team.email);
   (this.team_id = team.teamId), (this.team_name = team.teamName);
 };
 

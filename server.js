@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-var userRoutes = require("./routes/userroutes");
+var userRoutes = require("./routes/userRoutes");
 var teamRoutes = require("./routes/teamRoutes")
 
 userRoutes(app); 
