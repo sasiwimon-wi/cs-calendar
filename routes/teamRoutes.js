@@ -6,4 +6,7 @@ module.exports = function (app) {
 
   app.route("/team/:user_id/:team_id")
   .get(teamList.getTeamById);
+
+  app.route("/team")
+  .post(teamList.postTeam);
 };
