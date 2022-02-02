@@ -83,7 +83,7 @@ UserList.postTeam = function (newTeam, result) {
 
   });
 };
-/////////////////
+///////////////// /////
 module.exports = {
   UserTeamRlt,
   UserList,
