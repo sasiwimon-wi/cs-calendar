@@ -49,8 +49,6 @@ exports.getTeamById = function (req, res) {
 exports.postTeam = function (req, res) {
   var newTeam = req.body;
 
-  // console.log("CTL --> ", newTeam);
-
   if (newTeam.team_name === "") {
     return res.status(400).json({
       status: 400,

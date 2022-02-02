@@ -2,11 +2,11 @@ var sql = require("./db");
 
 var UserTeamRlt = function (team) {
   (this.user_id = team.userId),
-  (this.name = team.name),
-  (this.username = team.username),
-  (this.email = team.email),
-  (this.team_id = team.teamId),
-  (this.team_name = team.teamName);
+    (this.name = team.name),
+    (this.username = team.username),
+    (this.email = team.email),
+    (this.team_id = team.teamId),
+    (this.team_name = team.teamName);
 };
 
 var Usergroup = function (u) {
@@ -44,35 +44,47 @@ UserTeamRlt.getTeamById = function (userId, teamId, result) {
     if (err) {
       result(err);
     }
-    console.log(sqlQuery)
+    console.log(sqlQuery);
 
     result(null, res);
   });
 };
 
 UserList.postTeam = function (newTeam, result) {
-  // console.log("MODEL !! ", newTeam.UserGroup[0].user_id);
-  console.log("MODEL !! ", newTeam.UserGroup.length);
   const userElement = newTeam.UserGroup;
   const teamName = newTeam.team_name;
-  console.log(newTeam.team_name);
 
   let sqlTeam = "INSERT INTO team (team_name) VALUES (?)";
+  let sqlUserTeam = "INSERT INTO userteam (user_id, team_id) VALUES (?, ?)";
 
+  // CHECK DUPLICATE TEAM NAME
+  // -------------------------
+  // CHECK DUPLICATE TEAM NAME
 
   sql.query(sqlTeam, [teamName], function (err, res) {
-    console.log(sqlTeam)
     if (err) {
       result(err);
     }
-    console.log(res);
-    result(null, res);
-  });
 
+    // LOOP ADD USERTEAM
+    userElement.forEach((e) => {
+      // CHECK DUPLICATE USER ID ---------- //
+
+      sql.query(sqlUserTeam, [e.user_id, res.insertId], function (error, rlt) {
+        if (error) {
+          result(error);
+        }
+        console.log("res: ", rlt);
+      });
+
+    });
+
+    result(null, newTeam);
+
+  });
 };
 
 module.exports = {
   UserTeamRlt,
-  UserList
-}
-
+  UserList,
+};
